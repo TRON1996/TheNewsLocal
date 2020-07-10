@@ -11,6 +11,7 @@ public class User implements Serializable {
     private String photo;
     private String loginImg;
 
+
     public int getId() {
         return id;
     }

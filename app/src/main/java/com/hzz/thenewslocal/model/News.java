@@ -12,14 +12,6 @@ public class News implements Serializable {
     private String time;
     private User user;
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public int getId() {
         return id;
     }
@@ -66,5 +58,13 @@ public class News implements Serializable {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
