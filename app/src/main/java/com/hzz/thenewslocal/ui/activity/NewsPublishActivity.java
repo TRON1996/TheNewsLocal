@@ -25,6 +25,7 @@ import com.hzz.thenewslocal.utils.BitmapCompress;
 import com.hzz.thenewslocal.utils.HandleOSImagePath;
 import com.hzz.thenewslocal.utils.HttpClientUtils;
 import com.hzz.thenewslocal.utils.Permissions;
+import com.hzz.thenewslocal.utils.PublicString;
 
 
 import java.io.File;
@@ -44,7 +45,7 @@ public class NewsPublishActivity extends AppCompatActivity implements View.OnCli
     private Editable editable;
     private String txt = "";
     private TextView tvPublish;
-    private String rootUrl = "http://172.20.10.3:8088/TheNewsWeb_war_exploded/";
+
     private Map<String, String> rfileMap = new HashMap<>();
 
 
@@ -103,7 +104,7 @@ public class NewsPublishActivity extends AppCompatActivity implements View.OnCli
                 map.put("strNews", strNews);//把Gson字符串放入map键为strNews
                 Log.i("AAA", strNews);
                 try {
-                    HttpClientUtils.HttpClientPost(rootUrl + "NewInfoAction", map);
+                    HttpClientUtils.HttpClientPost(PublicString.rootUrl + "NewInfoAction", map);
                     //使用HttpClient工具类，调用其中的Post方式，把map发送到指定url的服务器
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -127,7 +128,7 @@ public class NewsPublishActivity extends AppCompatActivity implements View.OnCli
                     Map<String, String> umap = new HashMap<>();
                     umap.put("dic", user.getPhone());
                     //上传图片
-                    HttpClientUtils.HttpMultipartPost(rootUrl + "multipartAction", umap, fileMap);//filemap:(imgName, new File(path))
+                    HttpClientUtils.HttpMultipartPost(PublicString.rootUrl + "multipartAction", umap, fileMap);//filemap:(imgName, new File(path))
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

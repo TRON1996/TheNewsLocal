@@ -23,6 +23,7 @@ import com.hzz.thenewslocal.R;
 import com.hzz.thenewslocal.model.User;
 import com.hzz.thenewslocal.utils.HttpClientUtils;
 import com.hzz.thenewslocal.utils.MD5Utils;
+import com.hzz.thenewslocal.utils.PublicString;
 
 import org.apache.hc.client5.http.classic.HttpClient;
 
@@ -38,7 +39,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private User user = new User();
     Gson gson = new Gson();
     private int LOGIN_SUCCESS = 1;
-    private String rootUrl = "http://172.20.10.3:8088/TheNewsWeb_war_exploded/";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +100,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Map<String, Object> map = new HashMap<>();
                 map.put("strUser", strUser);
                 try {
-                    HttpClientUtils.HttpClientPost(rootUrl + "loginUser", map);
+                    HttpClientUtils.HttpClientPost(PublicString.rootUrl + "loginUser", map);
                     Message message = new Message();
                     message.obj = login;
                     handler.sendMessage(message);
