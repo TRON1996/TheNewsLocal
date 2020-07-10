@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <TextView
+        android:id="@+id/edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="用户登录界面"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_marginTop="100dp"
+
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingBottom="5dp"
+        android:paddingRight="5dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_width="300dp"
+        android:layout_height="38dp"
+        android:layout_gravity="center"
+        android:hint="用户名"
+        android:inputType="text"
+        android:textSize="20sp"
+        android:background="@drawable/rounded_text"/>
+
+
+
+
+
+    <EditText
+
+        android:id="@+id/password"
+        android:layout_marginTop="60dp"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingBottom="5dp"
+        android:paddingRight="5dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_width="300dp"
+        android:layout_height="38dp"
+        android:layout_gravity="center"
+        android:hint="密码"
+        android:inputType="text"
+        android:textSize="20sp"
+        android:background="@drawable/rounded_text" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+<androidx.appcompat.widget.AppCompatRadioButton
+    android:layout_marginTop="20dp"
+    android:layout_marginLeft="50dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="记住用户和密码">
+
+</androidx.appcompat.widget.AppCompatRadioButton>
+        <Button
+            android:id="@+id/login"
+            android:layout_marginTop="95dp"
+            android:layout_height="60dp"
+            android:layout_width="wrap_content"
+            android:text="登录"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:background="@drawable/rounded_text"/>
+
+
+        <TextView
+            android:id="@+id/registered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:text="没有账号？请注册！"
+            android:textColor="#000000"
+            android:textSize="18sp">
+
+        </TextView>
+        <TextView
+            android:id="@+id/forgetpwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:text="忘记密码"
+            android:textColor="#000000"
+            android:textSize="18sp">
+
+        </TextView>
+    </LinearLayout>
+
+
+
+</LinearLayout>
