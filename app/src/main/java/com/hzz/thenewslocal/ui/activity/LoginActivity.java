@@ -1,6 +1,7 @@
 package com.hzz.thenewslocal.ui.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 
@@ -36,7 +37,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button login;
     private TextView registered;
     private TextView forgetPwd;
-    private User user = new User();
+    public SharedPreferences sharedPreferences;
     Gson gson = new Gson();
     private int LOGIN_SUCCESS = 1;
 
@@ -95,6 +96,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         new Thread(new Runnable() {
             @Override
             public void run() {
+                User user = new User();
                 user.setName(username.getText().toString());
                 /*  user.setPassword(MD5Utils.MD5Encode(password.getText().toString()));*/
                 user.setPassword(password.getText().toString());
@@ -102,11 +104,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Map<String, Object> map = new HashMap<>();
                 map.put("strUser", strUser);
                 try {
-                    HttpClientUtils.HttpClientPost(PublicString.rootUrl + "loginUser", map);
+                    String backstr = HttpClientUtils.HttpClientPost(PublicString.rootUrl + "loginUser", map);
                     Message message = new Message();
-                    message.obj = login;
-                    handler.sendMessage(message);
+
+                    message.obj = backstr;
                     message.what = LOGIN_SUCCESS;
+                    handler.sendMessage(message);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -122,11 +126,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if (msg.what == LOGIN_SUCCESS) {
                 String str = msg.obj.toString();
                 Log.i("str", str);
-                if (str.equals("error")) {
-                    Toast.makeText(LoginActivity.this, "错误", Toast.LENGTH_SHORT).show();
+                if (str == "") {
+                    Toast.makeText(LoginActivity.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
                 } else {
                     //成功后执行的代码
-                    Log.i("AAAAA", "登录成功");
+                    Log.i("AAAA", "用户登录成功");
+                    LoadUserData(str);
+                    LoadDataDemo();
                     Intent intent = new Intent();
                     intent.setClass(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
@@ -135,5 +141,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     };
 
+    private void LoadUserData(String str) {
+        User loudUser = new User();
+        loudUser = gson.fromJson(str, User.class);
+        sharedPreferences = getSharedPreferences("logindata", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("id", loudUser.getId());
+        editor.putString("name", loudUser.getName());
+        editor.putString("sex", loudUser.getSex());
+        editor.putString("phone", loudUser.getPhone());
+        editor.putString("password", loudUser.getPassword());
+        editor.putString("photo", loudUser.getPhoto());
+        editor.putString("loginImg", loudUser.getLoginImg());
+        editor.commit();
+
+    }
+
+// 测试sp取数据
+    private void LoadDataDemo() {
+        SharedPreferences sp=getSharedPreferences("logindata", MODE_PRIVATE);
+        String spName = sp.getString("name", "");
+        Log.i("AAAA",spName);
+    }
 }
 
