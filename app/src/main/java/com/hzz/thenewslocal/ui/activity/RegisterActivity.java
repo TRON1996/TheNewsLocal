@@ -34,6 +34,7 @@ import com.hzz.thenewslocal.utils.BitmapCompress;
 import com.hzz.thenewslocal.utils.HandleOSImagePath;
 import com.hzz.thenewslocal.utils.HttpClientUtils;
 import com.hzz.thenewslocal.utils.MD5Utils;
+import com.hzz.thenewslocal.utils.PublicString;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -50,7 +51,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private Button registerup;
     private EditText phonenum;
     private ImageView loginImg;
-    private String rootUrl = "http://172.20.10.3:8088/TheNewsWeb_war_exploded/";
+
     private String imgPath;
     private ProgressDialog prgDialog;
     private Bitmap bitmap;
@@ -169,25 +170,33 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void run() {
                 String username = reusername.getText().toString();
-                String password = MD5Utils.MD5Encode(repassword.getText().toString());
+           /*     String password = MD5Utils.MD5Encode(repassword.getText().toString());*/
+                String password=repassword.getText().toString();
                 String phone = phonenum.getText().toString();
                 userp.setName(username);
                 userp.setPassword(password);
-               /* userp.setPhone(phone);*/
+                userp.setPhone(phone);
                 Gson gson = new Gson();
                 String strUser = gson.toJson(userp);
                 Map<String, Object> map = new HashMap<>();
                 map.put("strUser", strUser);
                 Log.i("AAA", strUser);
                 try {
-                    HttpClientUtils.HttpClientPost(rootUrl + "userAction", map);
+                    HttpClientUtils.HttpClientPost(PublicString.rootUrl + "userAction", map);
               /*      publishuserImg();*/
+                    returnLogin();
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }).start();
+    }
+
+    private void returnLogin() {//注册成功自动返回登录
+        Intent intent = new Intent();
+        intent.setClass(RegisterActivity.this,LoginActivity .class);
+        startActivity(intent);
     }
 
     //头像文件上传
@@ -199,7 +208,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     Map<String, String> umap = new HashMap<>();
                     String phone = phonenum.getText().toString();
                     umap.put("dic", phone);
-                    HttpClientUtils.HttpMultipartPost(rootUrl + "userImgAction", umap, loginFileMap);
+                    HttpClientUtils.HttpMultipartPost(PublicString.rootUrl + "userImgAction", umap, loginFileMap);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

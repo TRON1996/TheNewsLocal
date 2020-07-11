@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         login.setOnClickListener(this);
         registered = (TextView) findViewById(R.id.registered);
         registered.setOnClickListener(this);
-    forgetPwd=findViewById(R.id.forgetpwd);
+        forgetPwd = findViewById(R.id.forgetpwd);
         forgetPwd.setOnClickListener(this);
 
 
@@ -70,9 +70,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.registered:
                 register();
-
+                break;
             case R.id.forgetpwd:
                 forgetpwd();
+                break;
         }
     }
 
@@ -95,7 +96,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void run() {
                 user.setName(username.getText().toString());
-                user.setPassword(MD5Utils.MD5Encode(password.getText().toString()));
+                /*  user.setPassword(MD5Utils.MD5Encode(password.getText().toString()));*/
+                user.setPassword(password.getText().toString());
                 String strUser = gson.toJson(user);
                 Map<String, Object> map = new HashMap<>();
                 map.put("strUser", strUser);
