@@ -1,6 +1,7 @@
 package com.hzz.thenewslocal.ui.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Editable;
@@ -93,10 +94,15 @@ public class NewsPublishActivity extends AppCompatActivity implements View.OnCli
         new Thread(new Runnable() {
             @Override
             public void run() {
+                SharedPreferences spCg = getSharedPreferences("logindata", MODE_PRIVATE);
+                int spInt = spCg.getInt("id", 0);
                 News news = new News();
+                User user = new User();
+                user.setId(spInt);
                 String title = etNewTitle.getText().toString();
                 String content = etText.getText().toString();//获取输入框中的标题和内容，转为String
                 news.setContent(content);
+                news.setUser(user);
                 news.setTitle(title);//装载内容到新闻model
                 Gson gson = new Gson();//创建Gson对象
                 String strNews = gson.toJson(news);//把装着内容的新闻modle转为Gson并放入字符串类型的strNews
@@ -140,7 +146,7 @@ public class NewsPublishActivity extends AppCompatActivity implements View.OnCli
     private void openImage() {
         Intent intent = new Intent();
         /*intent是一种运行时绑定机制，他能连接两个不同的组件
-        * */
+         * */
         intent.setType("image/*");//设置要调用的类型为图片
         intent.setAction(Intent.ACTION_GET_CONTENT);//采用隐式intent启动系统组建，自动识别ACTION_GET_CONTENT启动那个activity
         startActivityForResult(intent, REQUEST_CODE_SYS_IMG);
@@ -166,6 +172,7 @@ public class NewsPublishActivity extends AppCompatActivity implements View.OnCli
             insertBitmap(fileName, path);
         }
     }
+
     //插入图片,在内容框中显示图片
     private void insertBitmap(String fileName, String path) {
         String bmpTag = "<img src=" + fileName + "/>";

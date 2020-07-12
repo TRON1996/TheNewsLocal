@@ -15,7 +15,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,10 +22,7 @@ import com.google.gson.Gson;
 import com.hzz.thenewslocal.R;
 import com.hzz.thenewslocal.model.User;
 import com.hzz.thenewslocal.utils.HttpClientUtils;
-import com.hzz.thenewslocal.utils.MD5Utils;
 import com.hzz.thenewslocal.utils.PublicString;
-
-import org.apache.hc.client5.http.classic.HttpClient;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,6 +34,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextView registered;
     private TextView forgetPwd;
     public SharedPreferences sharedPreferences;
+
     Gson gson = new Gson();
     private int LOGIN_SUCCESS = 1;
 
@@ -158,10 +155,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
 // 测试sp取数据
-    private void LoadDataDemo() {
+    public void LoadDataDemo() {
         SharedPreferences sp=getSharedPreferences("logindata", MODE_PRIVATE);
         String spName = sp.getString("name", "");
         Log.i("AAAA",spName);
+
+
     }
 }
 

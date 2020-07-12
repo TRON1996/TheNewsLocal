@@ -51,7 +51,7 @@ public class HomeNewsAdapter extends BaseAdapter {
             TextView tvUserName=view.findViewById(R.id.tvUserName);
             TextView tvTime=view.findViewById(R.id.tvPublishTime);
             tvTitle.setText(news.getTitle());
-            tvUserName.setText(news.getUser().getName());
+      /*      tvUserName.setText(news.getUser().getName());*/
             tvTime.setText(news.getTime());
         }else if(news.getImgName().size()<3){
             view = LayoutInflater.from(context).inflate(R.layout.news_type_img1_item, null);
@@ -60,7 +60,7 @@ public class HomeNewsAdapter extends BaseAdapter {
             TextView tvTime=view.findViewById(R.id.tvPublishTime);
             ImageView iv=view.findViewById(R.id.imageView);
             tvTitle.setText(news.getTitle());
-            tvUserName.setText(news.getUser().getName());
+            /*tvUserName.setText(news.getUser().getName());*/
             tvTime.setText(news.getTime());
 
             imageLoader.displayImage(url+news.getImgName().get(0),iv);
@@ -74,7 +74,7 @@ public class HomeNewsAdapter extends BaseAdapter {
             ImageView iv3=view.findViewById(R.id.imageView4);
 
             tvTitle.setText(news.getTitle());
-            tvUserName.setText(news.getUser().getName());
+          /*  tvUserName.setText(news.getUser().getName());*/
             tvTime.setText(news.getTime());
             imageLoader.displayImage(url+news.getImgName().get(0),iv1);
             imageLoader.displayImage(url+news.getImgName().get(1),iv2);

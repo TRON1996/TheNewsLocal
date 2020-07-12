@@ -10,6 +10,7 @@ public class User implements Serializable {
     private String password;
     private String photo;
     private String loginImg;
+    private String selfinfo;
 
 
     public int getId() {
@@ -66,5 +67,13 @@ public class User implements Serializable {
 
     public void setLoginImg(String loginImg) {
         this.loginImg = loginImg;
+    }
+
+    public String getSelfinfo() {
+        return selfinfo;
+    }
+
+    public void setSelfinfo(String selfinfo) {
+        this.selfinfo = selfinfo;
     }
 }

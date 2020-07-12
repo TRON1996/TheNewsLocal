@@ -1,6 +1,8 @@
 package com.hzz.thenewslocal.ui.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +17,17 @@ import com.hzz.thenewslocal.R;
 import com.hzz.thenewslocal.adapter.HomeNewsAdapter;
 import com.hzz.thenewslocal.model.News;
 import com.hzz.thenewslocal.model.User;
+import com.hzz.thenewslocal.utils.HttpClientUtils;
+import com.hzz.thenewslocal.utils.PublicString;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
-
+    private  static  final int NEWS_HOME_MESSAGE=1003;
+    private static final int NEWS_SHOW_MESSAGE =1007 ;
+    private static final int NEWS_SHOW =1008;
+    private Handler handler;
     private ListView lvHomeNews;
 
     @Override
@@ -29,6 +36,24 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_home, container, false);
         /////模拟数据
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Message message=new Message();
+                try {
+                    String str= HttpClientUtils.HttpClientGet(PublicString.rootUrl+"homenews",null);
+                    Gson gson=new Gson();
+                    List<News> list=gson.fromJson(str,new TypeToken<List<News>>() {}.getType());
+                    message.what=NEWS_HOME_MESSAGE;
+                    message.obj=list;
+                    handler.sendMessage(message);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+
         lvHomeNews=view.findViewById(R.id.lvHomeNews);
         List<News> list=new ArrayList<>();
         News news=new News();
@@ -39,7 +64,7 @@ public class HomeFragment extends Fragment {
         news.setImgName(pnames3);
         User user=new User();
         user.setName("央视网络");
-        news.setUser(user);
+        /*news.setUser(user);*/
         list.add(news);
 
 
@@ -47,7 +72,7 @@ public class HomeFragment extends Fragment {
         news1.setId(1);
         news1.setTitle("这是一个没有图片的非常重要的惊天动地的震撼人心的特别特别大的新闻");
         news1.setTime("2020-5-18 15:57");
-        news1.setUser(user);
+    /*    news1.setUser(user);*/
         List<String> pnames=new ArrayList<>();
         pnames.add("timg.jpeg");
         pnames.add("temp.jpg");
@@ -58,7 +83,7 @@ public class HomeFragment extends Fragment {
         news2.setId(1);
         news2.setTitle("这是一个没有图片的非常重要的惊天动地的震撼人心的特别特别大的新闻");
         news2.setTime("2020-5-18 15:57");
-        news2.setUser(user);
+     /*   news2.setUser(user);*/
         List<String> pnames1=new ArrayList<>();
         pnames1.add("timg.jpeg");
         pnames1.add("temp.jpg");
