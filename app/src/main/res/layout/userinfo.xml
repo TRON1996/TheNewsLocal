@@ -15,8 +15,18 @@
         >
 
 
-
         <TextView
+            android:id="@+id/infoback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="55dp"
+            android:layout_toLeftOf="@+id/tata"
+            android:text="返回"
+            android:textColor="#FFB90F"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/tata"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="个人信息修改"
@@ -55,7 +65,7 @@
 
 
             <ImageView
-                android:id="@+id/myporid"
+                android:id="@+id/userimgup"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_alignParentStart="true"

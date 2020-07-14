@@ -65,7 +65,7 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="5dp"
                 android:layout_gravity="center_horizontal"
-                app:srcCompat="@drawable/ic_home" />
+                app:srcCompat="@drawable/ic_first" />
 
             <TextView
                 android:id="@+id/tvHome"
@@ -73,6 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="首页"
+                android:textColor="#FFB90F"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -81,7 +82,7 @@
             android:layout_width="55dp"
             android:layout_height="55dp"
             android:layout_marginTop="3dp"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="45dp"
             android:layout_toRightOf="@+id/llHome"
             android:orientation="vertical">
 
@@ -91,7 +92,7 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="5dp"
                 android:layout_gravity="center_horizontal"
-                app:srcCompat="@drawable/ic_heat" />
+                app:srcCompat="@drawable/ic_second" />
 
             <TextView
                 android:id="@+id/tvHot"
@@ -99,6 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="热度"
+                android:textColor="#FFB90F"
                 android:textSize="14sp" />
         </LinearLayout>
         <LinearLayout
@@ -116,7 +118,7 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="5dp"
                 android:layout_gravity="center_horizontal"
-                app:srcCompat="@drawable/ic_me" />
+                app:srcCompat="@drawable/ic_home2" />
 
             <TextView
                 android:id="@+id/tvMe"
@@ -124,6 +126,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="我的"
+                android:textColor="#FFB90F"
                 android:textSize="14sp" />
         </LinearLayout>
         <LinearLayout
@@ -131,7 +134,7 @@
             android:layout_width="55dp"
             android:layout_height="55dp"
             android:layout_marginTop="3dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginRight="49dp"
             android:layout_toLeftOf="@+id/llMe"
             android:orientation="vertical">
 
@@ -141,7 +144,7 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="5dp"
                 android:layout_gravity="center_horizontal"
-                app:srcCompat="@drawable/ic_collection" />
+                app:srcCompat="@drawable/ic_three" />
 
             <TextView
                 android:id="@+id/tvCollection"
@@ -149,6 +152,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="收藏"
+                android:textColor="#FFB90F"
                 android:textSize="14sp" />
         </LinearLayout>
     </RelativeLayout>

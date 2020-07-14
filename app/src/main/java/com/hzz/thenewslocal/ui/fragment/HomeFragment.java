@@ -1,5 +1,6 @@
 package com.hzz.thenewslocal.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -7,8 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.google.gson.Gson;
@@ -16,18 +19,22 @@ import com.google.gson.reflect.TypeToken;
 import com.hzz.thenewslocal.R;
 import com.hzz.thenewslocal.adapter.HomeNewsAdapter;
 import com.hzz.thenewslocal.model.News;
-import com.hzz.thenewslocal.model.User;
 import com.hzz.thenewslocal.utils.HttpClientUtils;
 import com.hzz.thenewslocal.utils.PublicString;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class HomeFragment extends Fragment {
     private  static  final int NEWS_HOME_MESSAGE=1003;
     private static final int NEWS_SHOW_MESSAGE =1007 ;
     private static final int NEWS_SHOW =1008;
     private Handler handler;
+    private Handler handler1;
+    private List<News> list=new ArrayList<>();
+    private int newsId;
     private ListView lvHomeNews;
 
     @Override
@@ -35,74 +42,102 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_home, container, false);
-        /////模拟数据
+        lvHomeNews=view.findViewById(R.id.lvHomeNews);//将fragment_home界面加载到HomeFragment的view
+
         new Thread(new Runnable() {
             @Override
-            public void run() {
-                Message message=new Message();
+            public void run() {//创建线程
+                Message message=new Message();//创建消息
                 try {
-                    String str= HttpClientUtils.HttpClientGet(PublicString.rootUrl+"homenews",null);
+                    String str = HttpClientUtils.HttpClientGet(PublicString.rootUrl+"newsselect",null);//向服务器中发出请求
                     Gson gson=new Gson();
                     List<News> list=gson.fromJson(str,new TypeToken<List<News>>() {}.getType());
-                    message.what=NEWS_HOME_MESSAGE;
-                    message.obj=list;
-                    handler.sendMessage(message);
+                    //解析服务器中的数据fremJson(json,类型)，TypeToken解析为Adapter类型
+                    Log.i("AAAA","获取数据库中的全部Newsjson："+str);
+                    message.what=NEWS_HOME_MESSAGE;//消息标识为NEWS_HOME_MESSAGE
+                    message.obj=list;//将list装如mssage
+                    handler.sendMessage(message);//发送此message;
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
             }
         }).start();
 
+        handler  =new Handler(){
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);//handle接收message
+                if (msg.what==NEWS_HOME_MESSAGE){//判断表示
+                    View view=getView();
+                    list= (List<News>) msg.obj;
+                   final  HomeNewsAdapter homeNewsAdapter=new HomeNewsAdapter(view.getContext(),list);
+                lvHomeNews.setAdapter(homeNewsAdapter);
+                }
+            }
+        };
 
-        lvHomeNews=view.findViewById(R.id.lvHomeNews);
-        List<News> list=new ArrayList<>();
-        News news=new News();
-        news.setId(1);
-        news.setTitle("这是一个没有图片的非常重要的惊天动地的震撼人心的特别特别大的新闻");
-        news.setTime("2020-5-18 15:57");
-        List<String> pnames3=new ArrayList<>();
-        news.setImgName(pnames3);
-        User user=new User();
-        user.setName("央视网络");
-        /*news.setUser(user);*/
-        list.add(news);
+        lvHomeNews.setOnItemClickListener(new AdapterView.OnItemClickListener() {//为adapter中的条目设置点击事件
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                newsId=list.get(position).getId();//得到点击条目的ID
+                    final Map<String,Object>map=new HashMap<String ,Object>();
+
+                    map.put("newsId",newsId);//创建map将获取的id放入map
+                    Log.i("新文详细叶相关","取到的NewsID"+newsId);
 
 
-        News news1=new News();
-        news1.setId(1);
-        news1.setTitle("这是一个没有图片的非常重要的惊天动地的震撼人心的特别特别大的新闻");
-        news1.setTime("2020-5-18 15:57");
-    /*    news1.setUser(user);*/
-        List<String> pnames=new ArrayList<>();
-        pnames.add("timg.jpeg");
-        pnames.add("temp.jpg");
-        news1.setImgName(pnames);
-        list.add(news1);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Message message=new Message();//创建消息
+                        try {
+                        String strNew=HttpClientUtils.HttpClientPost(PublicString.rootUrl+"shownewsdetial",map);
+                        //通过map中的id向服务端获取这个id的信息，并返回为String的GSon
+                            Log.i("新文详细叶相关","发送的map："+map);
+                            Log.i("新文详细叶相关","返回的str："+strNew);
+                        message.what=NEWS_SHOW_MESSAGE;
+                        //创建消息标识
+                        message.obj=strNew;//将返回的Gson装入消息obj
+                        handler1.sendMessage(message);//发送obj
+                    } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
 
-        News news2=new News();
-        news2.setId(1);
-        news2.setTitle("这是一个没有图片的非常重要的惊天动地的震撼人心的特别特别大的新闻");
-        news2.setTime("2020-5-18 15:57");
-     /*   news2.setUser(user);*/
-        List<String> pnames1=new ArrayList<>();
-        pnames1.add("timg.jpeg");
-        pnames1.add("temp.jpg");
-        pnames1.add("timg2.jpeg");
-        news2.setImgName(pnames1);
-        list.add(news2);
-        //////////////////////////////
-        Gson gson=new Gson();
-        String json=gson.toJson(list);
-        Log.i("AAA",json);
-        List<News> nlist=getEntitysFromJson(json);
-        HomeNewsAdapter homeNewsAdapter=new HomeNewsAdapter(this.getActivity(),list);
-        lvHomeNews.setAdapter(homeNewsAdapter);
+                handler1=new Handler(){
+                    @Override
+                    public void handleMessage(@NonNull Message msg) {
+                        super.handleMessage(msg);
+                        if(msg.what==NEWS_SHOW_MESSAGE){//根据NEWS_SHOW_MESSAGE获取obj
+                            String obj=msg.obj.toString();//将obj转为Gson串
+                            Gson gson=new Gson();
+                            News news=gson.fromJson(obj,News.class);//将obj的Gson转为对应的News实体
+                            String id=news.getTitle();
+                            String title=news.getTitle();
+                            String content=news.getContent();
+                            String time=news.getTime();
+                            String type=news.getType();
+                            String name=news.getUser().getName();
+                            //取出发布者的名字
+
+                            String phone=news.getUser().getPhone();
+                            Log.i("新文详细叶相关","分别创建对应字符串取出各个值："+id+name+title+content+time+type);
+                        }
+
+                    }
+                };
+
+            }
+        });
+
+
+
+
         return view;
     }
-    private List<News> getEntitysFromJson(String json){
 
-        Gson gson=new Gson();
-        List<News> list=gson.fromJson(json,new TypeToken<List<News>>(){}.getType());
-        return list;
-    }
+
+
 }

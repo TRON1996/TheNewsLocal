@@ -1,16 +1,26 @@
 package com.hzz.thenewslocal.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class News implements Serializable {
     private int id;
     private String title;
     private String content;
-    private List<String> imgName;
+    private List<String> imgName =new ArrayList<>();
     private String type;
     private String time;
     private User user;
+    private  String stringimg;
+
+    public String getStringimg() {
+        return stringimg;
+    }
+
+    public void setStringimg(String stringimg) {
+        this.stringimg = stringimg;
+    }
 
     public int getId() {
         return id;

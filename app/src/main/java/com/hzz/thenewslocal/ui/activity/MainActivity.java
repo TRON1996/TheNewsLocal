@@ -1,6 +1,7 @@
 package com.hzz.thenewslocal.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.View;
@@ -30,6 +31,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         homeFragment=new HomeFragment();
         meFragment=new MeFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.flcontent,homeFragment).commit();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction(); // import android.support.v4.app.FragmentTransaction;
+
+
+
     }
 
     @Override

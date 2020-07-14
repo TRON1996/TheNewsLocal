@@ -57,27 +57,29 @@
         android:background="@drawable/rounded_text" />
 
     <LinearLayout
-        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_width="match_parent">
-<androidx.appcompat.widget.AppCompatRadioButton
-    android:layout_marginTop="20dp"
-    android:layout_marginLeft="50dp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="记住用户和密码">
+        android:orientation="vertical">
 
-</androidx.appcompat.widget.AppCompatRadioButton>
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="20dp"
+            android:text="记住用户和密码">
+
+        </androidx.appcompat.widget.AppCompatRadioButton>
+
         <Button
             android:id="@+id/login"
-            android:layout_marginTop="95dp"
-            android:layout_height="60dp"
             android:layout_width="wrap_content"
-            android:text="登录"
+            android:layout_height="60dp"
             android:layout_gravity="center"
+            android:layout_marginTop="95dp"
+            android:background="@drawable/rounded_text"
+            android:text="登录"
             android:textAlignment="center"
-            android:textSize="18sp"
-            android:background="@drawable/rounded_text"/>
+            android:textSize="18sp" />
 
 
         <TextView
@@ -91,6 +93,7 @@
             android:textSize="18sp">
 
         </TextView>
+
         <TextView
             android:id="@+id/forgetpwd"
             android:layout_width="wrap_content"
@@ -103,7 +106,6 @@
 
         </TextView>
     </LinearLayout>
-
 
 
 </LinearLayout>

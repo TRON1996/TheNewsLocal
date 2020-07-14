@@ -31,8 +31,10 @@ import com.hzz.thenewslocal.utils.PublicString;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -46,6 +48,7 @@ public class NewsPublishActivity extends AppCompatActivity implements View.OnCli
     private Editable editable;
     private String txt = "";
     private TextView tvPublish;
+    private List<String> imgList =new ArrayList<String>();
 
     private Map<String, String> rfileMap = new HashMap<>();
 
@@ -103,6 +106,7 @@ public class NewsPublishActivity extends AppCompatActivity implements View.OnCli
                 String content = etText.getText().toString();//获取输入框中的标题和内容，转为String
                 news.setContent(content);
                 news.setUser(user);
+                news.setImgName(imgList);
                 news.setTitle(title);//装载内容到新闻model
                 Gson gson = new Gson();//创建Gson对象
                 String strNews = gson.toJson(news);//把装着内容的新闻modle转为Gson并放入字符串类型的strNews
@@ -126,7 +130,7 @@ public class NewsPublishActivity extends AppCompatActivity implements View.OnCli
             public void run() {
                 String content = etText.getText().toString();//获取输入框内容并转为content字符串
                 Log.i("AAA", content);
-                Map<String, File> fileMap = findUploadImg(content);//调用findUploadImg方法，传入content字符串，将返回值装入fileMap类型为map的集合中
+                Map<String, File>  fileMap = findUploadImg(content);//调用findUploadImg方法，传入content字符串，将返回值装入fileMap类型为map的集合中
                 try {
                     //模拟一个用户
                     User user = new User();
@@ -223,6 +227,7 @@ public class NewsPublishActivity extends AppCompatActivity implements View.OnCli
             //返回给定<img href="Pattern.html#groupname">命名捕获组</img>在之前的匹配操作期间捕获的子序列的起始索引
             String path = rfileMap.get(imgName).toString();
             Log.i("AAA", path);
+            imgList.add(imgName);
             fileMap.put(imgName, new File(path));
         }
         return fileMap;
