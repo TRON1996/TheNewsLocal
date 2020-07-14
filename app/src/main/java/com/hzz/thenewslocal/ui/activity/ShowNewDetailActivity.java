@@ -10,6 +10,7 @@ import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,8 +26,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ShowNewDetailActivity extends AppCompatActivity {
-
-
+private TextView detailTitle;
+private TextView    pushUser;
 
 
 
@@ -46,12 +47,23 @@ public class ShowNewDetailActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        etShow=findViewById(R.id.etShowtitle);
+        etShow=findViewById(R.id.etShow);
         etShow.setText(loadcontent);
+        detailTitle =findViewById(R.id.detailtitle);
+        pushUser=findViewById(R.id.pushuser);
+        //取出intent传过来的数据
         Intent intent=getIntent();
         String content=intent.getStringExtra("content");
-        etShow=findViewById(R.id.etShowtitle);
+        String title=intent.getStringExtra("title");
+        String time=intent.getStringExtra("time");
+        String name=intent.getStringExtra("name");
+        String phone=intent.getStringExtra("phone");
+        String id=intent.getStringExtra("id");
+        Log.i("CCCC","新闻详细也intend传过来的值："+content+title+time+phone+name);
+        etShow=findViewById(R.id.etShow);
         etShow.setText(content);
+        detailTitle.setText(title);
+        pushUser.setText(name);
         loadNews(content);
     }
 
