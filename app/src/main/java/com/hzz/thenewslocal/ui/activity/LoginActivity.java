@@ -127,6 +127,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(LoginActivity.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
 
                 } else  {
+
                     //成功后执行的代码
                     Log.i("AAAA", "用户登录成功");
                     Intent intent = new Intent();
