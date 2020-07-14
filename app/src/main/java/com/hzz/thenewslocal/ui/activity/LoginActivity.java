@@ -156,13 +156,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
-// 测试sp取数据
-    public void LoadDataDemo() {
-        SharedPreferences sp=getSharedPreferences("logindata", MODE_PRIVATE);
-        String spName = sp.getString("name", "");
-        Log.i("AAAA",spName);
-
-
-    }
 }
 
