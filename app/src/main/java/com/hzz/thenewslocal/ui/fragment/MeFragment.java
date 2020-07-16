@@ -27,9 +27,10 @@ public class MeFragment extends Fragment implements View.OnClickListener {
     private TextView contextEdit;
     private TextView meName;
     private TextView userInfoChange;
-    private ImageView LoginImg ;
-    private ImageLoader imageLoader=ImageLoader.getInstance();
+    private ImageView LoginImg;
+    private ImageLoader imageLoader = ImageLoader.getInstance();
     private TextView mySelf;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -38,8 +39,8 @@ public class MeFragment extends Fragment implements View.OnClickListener {
         contextEdit = view.findViewById(R.id.contextEdit);
         meName = view.findViewById(R.id.mename);
         userInfoChange = view.findViewById(R.id.userinfochange);
-        LoginImg=view.findViewById(R.id.myporid);
-        mySelf=view.findViewById(R.id.myself);
+        LoginImg = view.findViewById(R.id.myporid);
+        mySelf = view.findViewById(R.id.myself);
         return view;
 
     }
@@ -60,7 +61,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
         Log.i("AAAA", "我的里面的数据" + spName);
         meName.setText(spName);
         mySelf.setText(selfinfo);
-        imageLoader.displayImage(PublicString.rootUrl+"/"+spName+"/"+spName+".jpg",LoginImg);
+        imageLoader.displayImage(PublicString.rootUrl + "/" + spName + "/" + spName + ".jpg", LoginImg);
 
     }
 
@@ -74,16 +75,12 @@ public class MeFragment extends Fragment implements View.OnClickListener {
                 UserINfoChange();
                 break;
         }
-
-
     }
-
     private void UserINfoChange() {
         Intent intent = new Intent();
         intent.setClass(getActivity(), UserInfoActivity.class);
         startActivity(intent);
     }
-
     private void tocontextEdit() {
         Intent intent = new Intent();
         intent.setClass(getActivity(), NewsPublishActivity.class);

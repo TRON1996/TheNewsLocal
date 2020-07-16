@@ -1,117 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#ffffff"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.activity.ShowNewDetailActivity">
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="248dp"
-        android:background="@color/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp">
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="80dp"
+        >
+        <ImageView
+            android:layout_centerVertical="true"
+            android:id="@+id/author_icon"
+            android:layout_width="50dp"
             android:layout_height="50dp"
-            app:layout_constraintTop_toTopOf="parent">
+            android:src="@drawable/ic_launcher"
+            android:layout_marginRight="10dp"
+            />
 
-            <TextView
-                android:id="@+id/tvEixt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="20dp"
-                android:text="返回"
-                android:textColor="@color/colorClickText"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="工商头条"
-                android:textColor="#000000"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/collect"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="351dp"
-                android:layout_marginRight="-253dp"
-                android:layout_marginBottom="12dp"
-
-                android:text="收藏"
-                android:textColor="@color/colorClickText"
-                android:textSize="18sp" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/pushuser"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:orientation="vertical">
+            android:layout_alignTop="@+id/author_icon"
+            android:layout_toRightOf="@id/author_icon"
+            android:text="作者"
+            android:textColor="@android:color/black"
+            android:textSize="18dp" />
+        <TextView android:id="@+id/time"
+            android:layout_toRightOf="@id/author_icon"
+            android:layout_alignBottom="@id/author_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2012-01-02:12"
+            android:textSize="16dp"
+            android:textColor="@android:color/darker_gray"
+            />
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/detailtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:text="这是标题"
+        android:textSize="30dp"></TextView>
 
-            <TextView
-                android:id="@+id/detailtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_gravity="center_horizontal"
-                android:text="这是标题"
-                android:textSize="30dp"></TextView>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="发布者："></TextView>
-
-                <TextView
-                    android:id="@+id/pushuser"
-                    android:layout_width="80dp"
-                    android:layout_height="30dp"
-                    android:gravity="center"
-                    android:text="这是用户名"
-                    android:textColor="#000000"
-                    android:textStyle="bold"></TextView>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:text="发布时间："></TextView>
-
-                <TextView
-                    android:id="@+id/pushdata"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2020-7-14"
-                    android:textColor="#000000"
-                    android:textStyle="bold"></TextView>
-            </LinearLayout>
-
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:id="@+id/scrollView2"
+        android:layout_width="409dp"
+        android:layout_height="490dp"
+        android:layout_above="@+id/relativeLayout2"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -121,22 +69,50 @@
 
         <EditText
             android:id="@+id/etShow"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
             android:background="@null"
             android:enabled="false"
             android:gravity="start|top"
             android:inputType="textMultiLine"
             android:lineSpacingExtra="10dp"
             android:textColor="#000000"
-            android:textSize="18sp"></EditText>
-
+            android:textSize="18sp" />
 
     </ScrollView>
 
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <FrameLayout android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#cccccc"
+        />
+    <LinearLayout android:layout_marginTop="5dp"
+        android:id="@+id/comment_list"
+        android:background="#ffffff"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/btn_input_comment"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_vertical"
+        android:hint="评论"
+        android:onClick="inputComment"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:textColor="#000000"
+
+        android:textColorHint="#aaaaaa"
+        android:textSize="14dp" />
+</LinearLayout>
