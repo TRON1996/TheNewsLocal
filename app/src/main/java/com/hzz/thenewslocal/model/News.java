@@ -12,7 +12,16 @@ public class News implements Serializable {
     private String type;
     private String time;
     private User user;
+    private int heat;
     private  String stringimg;
+
+    public int getHeat() {
+        return heat;
+    }
+
+    public void setHeat(int heat) {
+        this.heat = heat;
+    }
 
     public String getStringimg() {
         return stringimg;

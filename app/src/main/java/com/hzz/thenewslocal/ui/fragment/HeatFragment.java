@@ -51,7 +51,7 @@ public class HeatFragment extends Fragment {
             public void run() {//创建线程
                 Message message = new Message();//创建消息
                 try {
-                    String str = HttpClientUtils.HttpClientGet(PublicString.rootUrl + "newsselect", null);//向服务器中发出请求
+                    String str = HttpClientUtils.HttpClientGet(PublicString.rootUrl + "heatselect", null);//向服务器中发出请求
                     Gson gson = new Gson();
                     List<News> list = gson.fromJson(str, new TypeToken<List<News>>() {
                     }.getType());

@@ -73,6 +73,7 @@ public class CollectFragment extends Fragment {
                 super.handleMessage(msg);//handle接收message
                 if (msg.what == NEWS_COLLECT_MESSAGE) {//判断表示
                     View view = getView();
+
                     list = (List<News>) msg.obj;
                     final CollectNewsAdapter collectNewsAdapter = new CollectNewsAdapter(view.getContext(), list);
                     Collectews.setAdapter(collectNewsAdapter);

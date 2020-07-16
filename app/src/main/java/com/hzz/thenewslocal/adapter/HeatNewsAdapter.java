@@ -29,6 +29,7 @@ public class HeatNewsAdapter extends BaseAdapter {
     public HeatNewsAdapter(Context context, List<News> list) {
         this.context = context;
         this.list = list;
+
         ImageLoaderUtil.ImageLoaderInit(context);
     }
 
@@ -62,19 +63,19 @@ public class HeatNewsAdapter extends BaseAdapter {
             view = LayoutInflater.from(context).inflate(R.layout.news_type_noimg_item, null);
             TextView tvTitle=view.findViewById(R.id.tvNewTitle);
             TextView tvUserName=view.findViewById(R.id.tvUserName);
-            TextView tvTime=view.findViewById(R.id.tvPublishTime);
+            TextView tvHeat=view.findViewById(R.id.tvheat);
             tvTitle.setText(news.getTitle());
             tvUserName.setText(news.getUser().getName());
-            tvTime.setText(news.getTime());
+            tvHeat.setText(news.getHeat()+"");
         }else if(news.getImgName().size()<3){
             view = LayoutInflater.from(context).inflate(R.layout.news_type_img1_item, null);
             TextView tvTitle=view.findViewById(R.id.tvNewTitle);
             TextView tvUserName=view.findViewById(R.id.tvUserName);
-            TextView tvTime=view.findViewById(R.id.tvPublishTime);
+            TextView tvHeat=view.findViewById(R.id.tvheat);
             ImageView iv=view.findViewById(R.id.imageView);
             tvTitle.setText(news.getTitle());
             tvUserName.setText(news.getUser().getName());
-            tvTime.setText(news.getTime());
+            tvHeat.setText(news.getHeat()+"");
 
             imageLoader.displayImage(PublicString.rootUrl+"/"+"18589339339"+"/"+news.getImgName().get(0),iv);
             Log.i("AAAA","图片请求地址："+PublicString.rootUrl+"/"+"18589339339"+"/"+news.getImgName().get(0));
@@ -82,14 +83,14 @@ public class HeatNewsAdapter extends BaseAdapter {
             view = LayoutInflater.from(context).inflate(R.layout.news_type_img3_item, null);
             TextView tvTitle=view.findViewById(R.id.tvNewTitle);
             TextView tvUserName=view.findViewById(R.id.tvUserName);
-            TextView tvTime=view.findViewById(R.id.tvPublishTime);
+            TextView tvHeat=view.findViewById(R.id.tvheat);
             ImageView iv1=view.findViewById(R.id.imageView2);
             ImageView iv2=view.findViewById(R.id.imageView3);
             ImageView iv3=view.findViewById(R.id.imageView4);
 
             tvTitle.setText(news.getTitle());
             tvUserName.setText(news.getUser().getName());
-            tvTime.setText(news.getTime());
+            tvHeat.setText(news.getHeat()+"");
             imageLoader.displayImage(PublicString.rootUrl+"/"+"18589339339"+"/"+news.getImgName().get(0),iv1);
             imageLoader.displayImage(PublicString.rootUrl+"/"+"18589339339"+"/"+news.getImgName().get(1),iv2);
             imageLoader.displayImage(PublicString.rootUrl+"/"+"18589339339"+"/"+news.getImgName().get(2),iv3);

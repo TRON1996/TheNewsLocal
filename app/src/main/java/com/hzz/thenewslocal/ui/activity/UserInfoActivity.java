@@ -45,6 +45,7 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
     private static final int REQUEST_CODE_SYS_IMG = 10;
     protected Map<String, File> loginFileMap = new HashMap<String, File>();
     User user = new User();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,24 +62,25 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
         String spphone = spCg.getString("phone", "");
         String sppassword = spCg.getString("password", "");
         String sploginImg = spCg.getString("loginImg", "");
+        String spselfinfo = spCg.getString("selfinfo", "");
         Log.i("AAAA", "取出本地信息" + spName + spsex + spphone + sppassword + sploginImg);
         cgName = findViewById(R.id.cgname);
         cgName.setText(spName);
         cgPwd = findViewById(R.id.cgpwd);
+        cgPwd.setText(sppassword);
         cgPwd2 = findViewById(R.id.cgpwd2);
+        cgPwd2.setText(sppassword);
         cgSex = findViewById(R.id.cgsex);
+        cgSex.setText(spsex);
         cgSelfinfo = findViewById(R.id.cgselfinfo);
+        cgSelfinfo.setText(spselfinfo);
         upCgUser = findViewById(R.id.upcgUser);
         upCgUser.setOnClickListener(this);
-        userImgUp=findViewById(R.id.userimgup);
+        userImgUp = findViewById(R.id.userimgup);
         userImgUp.setOnClickListener(this);
-        infoBack=findViewById(R.id.infoback);
+        infoBack = findViewById(R.id.infoback);
         infoBack.setOnClickListener(this);
-
-
     }
-
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -94,7 +96,6 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
             case R.id.infoback:
                 inforBack();
                 break;
-
         }
     }
 
@@ -102,7 +103,7 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
     private void inforBack() {
         Intent intent = new Intent();
         intent.setClass(UserInfoActivity.this, MainActivity.class);
-        intent.putExtra("fragid",1);
+        intent.putExtra("fragid", 1);
         startActivity(intent);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction(); // import android.support.v4.app.FragmentTransaction;
 
@@ -125,13 +126,13 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
             //如果调用到REQUEST_CODE_SYS_IMG，则在REQUEST_CODE_SYS_IMG的activity中执行if中的代码
             //获取图片本地路径
             String path = HandleOSImagePath.ImagePath(this, data);
-            Log.i("AAAA","huo");
+            Log.i("AAAA", "huo");
             insertLoginBitmap(path);
             //获取文件后缀比如：.jpg
             String filefix = path.substring(path.lastIndexOf("."));
             //根据电话生成上传文件名
             SharedPreferences spCg = getSharedPreferences("logindata", MODE_PRIVATE);
-            String spname= spCg.getString("name", "");
+            String spname = spCg.getString("name", "");
 
             String imgName = spname;
             String fileName = imgName + filefix;
@@ -166,7 +167,6 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
                 user.setName(cgName.getText().toString());
                 user.setPassword(cgPwd.getText().toString());
                 user.setSex(cgSex.getText().toString());
-                user.setSex(cgSex.getText().toString());
                 user.setSelfinfo(cgSelfinfo.getText().toString());
 
                 Gson gson = new Gson();
@@ -192,12 +192,12 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
             public void run() {
                 try {
                     SharedPreferences spCg = getSharedPreferences("logindata", MODE_PRIVATE);
-                    String spname= spCg.getString("name", "");
+                    String spname = spCg.getString("name", "");
 
                     Map<String, String> umap = new HashMap<>();
 
                     umap.put("dic", spname);
-                    HttpClientUtils.HttpMultipartPost(PublicString.rootUrl + "logingimgup", umap, loginFileMap );
+                    HttpClientUtils.HttpMultipartPost(PublicString.rootUrl + "logingimgup", umap, loginFileMap);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

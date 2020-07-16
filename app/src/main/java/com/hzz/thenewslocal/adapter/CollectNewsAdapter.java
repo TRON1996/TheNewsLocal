@@ -62,7 +62,7 @@ public class CollectNewsAdapter extends BaseAdapter {
             view = LayoutInflater.from(context).inflate(R.layout.news_type_noimg_item, null);
             TextView tvTitle=view.findViewById(R.id.tvNewTitle);
             TextView tvUserName=view.findViewById(R.id.tvUserName);
-            TextView tvTime=view.findViewById(R.id.tvPublishTime);
+            TextView tvTime=view.findViewById(R.id.tvheat);
             tvTitle.setText(news.getTitle());
             tvUserName.setText(news.getUser().getName());
             tvTime.setText(news.getTime());
@@ -70,7 +70,7 @@ public class CollectNewsAdapter extends BaseAdapter {
             view = LayoutInflater.from(context).inflate(R.layout.news_type_img1_item, null);
             TextView tvTitle=view.findViewById(R.id.tvNewTitle);
             TextView tvUserName=view.findViewById(R.id.tvUserName);
-            TextView tvTime=view.findViewById(R.id.tvPublishTime);
+            TextView tvTime=view.findViewById(R.id.tvheat);
             ImageView iv=view.findViewById(R.id.imageView);
             tvTitle.setText(news.getTitle());
             tvUserName.setText(news.getUser().getName());
@@ -82,7 +82,7 @@ public class CollectNewsAdapter extends BaseAdapter {
             view = LayoutInflater.from(context).inflate(R.layout.news_type_img3_item, null);
             TextView tvTitle=view.findViewById(R.id.tvNewTitle);
             TextView tvUserName=view.findViewById(R.id.tvUserName);
-            TextView tvTime=view.findViewById(R.id.tvPublishTime);
+            TextView tvTime=view.findViewById(R.id.tvheat);
             ImageView iv1=view.findViewById(R.id.imageView2);
             ImageView iv2=view.findViewById(R.id.imageView3);
             ImageView iv3=view.findViewById(R.id.imageView4);

@@ -152,6 +152,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         editor.putString("password", loudUser.getPassword());
         editor.putString("photo", loudUser.getPhoto());
         editor.putString("loginImg", loudUser.getLoginImg());
+        editor.putString("selfinfo",loudUser.getSelfinfo());
         editor.commit();
 
     }

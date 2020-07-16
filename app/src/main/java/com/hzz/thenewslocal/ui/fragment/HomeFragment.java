@@ -19,6 +19,7 @@ import com.google.gson.reflect.TypeToken;
 import com.hzz.thenewslocal.R;
 import com.hzz.thenewslocal.adapter.HomeNewsAdapter;
 import com.hzz.thenewslocal.model.News;
+import com.hzz.thenewslocal.model.User;
 import com.hzz.thenewslocal.ui.activity.ShowNewDetailActivity;
 import com.hzz.thenewslocal.ui.activity.UserInfoActivity;
 import com.hzz.thenewslocal.utils.HttpClientUtils;
@@ -35,6 +36,7 @@ public class HomeFragment extends Fragment {
     private static final int NEWS_SHOW = 1008;
     private Handler handler;
     private Handler handler1;
+    private Handler heatHandle;
     private List<News> list = new ArrayList<>();
     private int newsId;
     private ListView lvHomeNews;
@@ -117,13 +119,45 @@ public class HomeFragment extends Fragment {
                             String obj = msg.obj.toString();//将obj转为Gson串
                             Gson gson = new Gson();
                             News news = gson.fromJson(obj, News.class);//将obj的Gson转为对应的News实体
-                            String id = news.getTitle();
-                            String title = news.getTitle();
-                            String content = news.getContent();
-                            String time = news.getTime();
-                            String type = news.getType();
+
+                            final int id = news.getId();
+                            final String title = news.getTitle();
+                            final String content = news.getContent();
+                            final String time = news.getTime();
+                            final String type = news.getType();
+                            final int heats = news.getHeat();
+                            final int userid = news.getUser().getId();
                             String name = news.getUser().getName();
                             //取出发布者的名字
+
+                            //热度相关线程
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    News heatNews = new News();
+                                    User user = new User();
+                                    heatNews.setHeat(heats + 1);
+                                    heatNews.setId(id);
+                                    heatNews.setTitle(title);
+                                    heatNews.setContent(content);
+                                    heatNews.setTime(time);
+                                    heatNews.setType(type);
+                                    heatNews.setUser(user);
+                                    user.setId(userid);
+                                    Gson gson = new Gson();//创建Gson对象
+                                    String strNews = gson.toJson(heatNews);//把装着内容的新闻modle转为Gson并放入字符串类型的strNews
+                                    Map<String, Object> map = new HashMap<>();//创建Map类型的集合map
+                                    map.put("strNews", strNews);//把Gson字符串放入map键为strNews
+                                    Log.i("HEAT123", strNews);
+                                    try {
+                                        HttpClientUtils.HttpClientPost(PublicString.rootUrl + "HeatNewsAdd", map);
+                                        //使用HttpClient工具类，调用其中的Post方式，把map发送到指定url的服务器
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }).start();
+
 
                             String phone = news.getUser().getPhone();
                             Log.i("新文详细叶相关", "分别创建对应字符串取出各个值：" + id + name + title + content + time + type);
@@ -137,6 +171,7 @@ public class HomeFragment extends Fragment {
                             intent.putExtra("name", name);
                             intent.putExtra("phone", phone);
                             intent.putExtra("id", id);
+                            intent.putExtra("heat",heats);
                             startActivityForResult(intent, NEWS_SHOW);
                         }
 
@@ -144,6 +179,7 @@ public class HomeFragment extends Fragment {
                 };
             }
         });
+
         return view;
     }
 }
