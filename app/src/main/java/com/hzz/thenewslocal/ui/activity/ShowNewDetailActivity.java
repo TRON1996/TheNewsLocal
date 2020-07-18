@@ -3,6 +3,7 @@ package com.hzz.thenewslocal.ui.activity;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,28 +14,40 @@ import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.gson.Gson;
 import com.hzz.thenewslocal.R;
+import com.hzz.thenewslocal.model.Collect;
+import com.hzz.thenewslocal.model.News;
+import com.hzz.thenewslocal.model.User;
 import com.hzz.thenewslocal.utils.BitmapCompress;
+import com.hzz.thenewslocal.utils.HttpClientUtils;
 import com.hzz.thenewslocal.utils.ImageLoaderUtil;
 import com.hzz.thenewslocal.utils.PublicString;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ShowNewDetailActivity extends AppCompatActivity {
+public class ShowNewDetailActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView detailTitle;
     private TextView pushUser;
     private String loadcontent = "";
     private EditText etShow;
     private Editable editable;
+    private ImageView Collectimg;
     private ImageLoader imageLoader = ImageLoader.getInstance();
+
+
+    private int newsid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +63,8 @@ public class ShowNewDetailActivity extends AppCompatActivity {
         etShow.setText(loadcontent);
         detailTitle = findViewById(R.id.detailtitle);
         pushUser = findViewById(R.id.pushuser);
+        Collectimg = findViewById(R.id.ivcollect);
+        Collectimg.setOnClickListener(this);
         //取出intent传过来的数据
         Intent intent = getIntent();
         String content = intent.getStringExtra("content");
@@ -57,8 +72,9 @@ public class ShowNewDetailActivity extends AppCompatActivity {
         String time = intent.getStringExtra("time");
         String name = intent.getStringExtra("name");
         String phone = intent.getStringExtra("phone");
-        String id = intent.getStringExtra("id");
-        Log.i("CCCC", "新闻详细也intend传过来的值：" + content + title + time + phone + name);
+        newsid = intent.getIntExtra("id", 0);
+        /*     int newsID = Integer.parseInt(id);*/
+        Log.i("CCCC", "新闻详细也intend传过来的值：" + content + title + time + phone + name + newsid);
         etShow = findViewById(R.id.etShow);
         etShow.setText(content);
         detailTitle.setText(title);
@@ -100,10 +116,52 @@ public class ShowNewDetailActivity extends AppCompatActivity {
         etShow.setText(editable);
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ivcollect:
+                collectUp();
+                break;
+
+        }
+
+    }
+
+    private void collectUp() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Collect collect = new Collect();
+
+                SharedPreferences userID = getSharedPreferences("logindata", MODE_PRIVATE);
+                int userId = userID.getInt("id", 0);
+                News news = new News();
+                User user = new User();
+
+                news.setId(newsid);
+                user.setId(userId);
+                collect.setNews(news);
+                collect.setUser(user);
+                Gson gson = new Gson();
+                String strCollect = gson.toJson(collect);
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("strCollect", strCollect);
+                try {
+                    HttpClientUtils.HttpClientPost(PublicString.rootUrl + "Collectionup", map);
+                    Log.i("收藏：", map.toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+    }
+
+
     /**
      * 弹出评论对话框
      */
-    private static Dialog showInputComment(Activity activity, CharSequence hint, final CommentDialogListener listener) {
+    /*private static Dialog showInputComment(Activity activity, CharSequence hint, final CommentDialogListener listener) {
         final Dialog dialog = new Dialog(activity, android.R.style.Theme_Translucent_NoTitleBar);
         dialog.setContentView(R.layout.view_input_comment);
         dialog.findViewById(R.id.input_comment_dialog_container).setOnClickListener(new View.OnClickListener() {
@@ -148,5 +206,5 @@ public class ShowNewDetailActivity extends AppCompatActivity {
         void onShow(int[] inputViewCoordinatesOnScreen);
 
         void onDismiss();
-    }
+    }*/
 }

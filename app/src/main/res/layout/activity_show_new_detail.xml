@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#ffffff"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="vertical"
     android:paddingLeft="5dp"
     android:paddingRight="5dp">
+
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="80dp"
-        >
+        android:layout_height="80dp">
+
         <ImageView
-            android:layout_centerVertical="true"
-            android:id="@+id/author_icon"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/ic_launcher"
+            android:layout_alignParentBottom="true"
             android:layout_marginRight="10dp"
-            />
+            android:layout_marginBottom="0dp"
+            android:src="@drawable/ic_launcher" />
 
         <TextView
             android:id="@+id/pushuser"
@@ -29,16 +29,28 @@
             android:text="作者"
             android:textColor="@android:color/black"
             android:textSize="18dp" />
-        <TextView android:id="@+id/time"
-            android:layout_toRightOf="@id/author_icon"
-            android:layout_alignBottom="@id/author_icon"
+
+        <TextView
+            android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/author_icon"
+            android:layout_toRightOf="@id/author_icon"
             android:text="2012-01-02:12"
-            android:textSize="16dp"
             android:textColor="@android:color/darker_gray"
-            />
+            android:textSize="16dp" />
+
+        <ImageView
+            android:id="@+id/ivcollect"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="0dp"
+            android:src="@drawable/collectimg"></ImageView>
     </RelativeLayout>
+
     <TextView
         android:id="@+id/detailtitle"
         android:layout_width="wrap_content"
@@ -87,18 +99,20 @@
     <RelativeLayout
         android:id="@+id/relativeLayout2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <FrameLayout android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#cccccc"
-        />
-    <LinearLayout android:layout_marginTop="5dp"
-        android:id="@+id/comment_list"
-        android:background="#ffffff"
-        android:orientation="vertical"
+        android:layout_height="wrap_content" />
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </LinearLayout>
+        android:layout_height="1dp"
+        android:background="#cccccc" />
+
+    <LinearLayout
+        android:id="@+id/comment_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="#ffffff"
+        android:orientation="vertical"></LinearLayout>
 
     <TextView
         android:id="@+id/btn_input_comment"

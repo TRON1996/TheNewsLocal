@@ -1,6 +1,7 @@
 package com.hzz.thenewslocal.ui.fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,7 +20,9 @@ import com.google.gson.reflect.TypeToken;
 import com.hzz.thenewslocal.R;
 import com.hzz.thenewslocal.adapter.CollectNewsAdapter;
 import com.hzz.thenewslocal.adapter.HomeNewsAdapter;
+import com.hzz.thenewslocal.model.Collect;
 import com.hzz.thenewslocal.model.News;
+import com.hzz.thenewslocal.model.User;
 import com.hzz.thenewslocal.ui.activity.ShowNewDetailActivity;
 import com.hzz.thenewslocal.utils.HttpClientUtils;
 import com.hzz.thenewslocal.utils.PublicString;
@@ -28,6 +31,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class CollectFragment extends Fragment {
     private static final int NEWS_COLLECT_MESSAGE = 1005;
@@ -51,8 +56,17 @@ public class CollectFragment extends Fragment {
             public void run() {//创建线程
                 Message message = new Message();//创建消息
                 try {
-                    String str = HttpClientUtils.HttpClientGet(PublicString.rootUrl + "newsselect", null);//向服务器中发出请求
+                    SharedPreferences userID = getActivity().getSharedPreferences("logindata", MODE_PRIVATE);
+                    int userId = userID.getInt("id", 0);
+                    final Map<String, Object> map = new HashMap<String, Object>();
+                    map.put("userId", userId);//创建map将获取的id放入map
+
+                    String str = HttpClientUtils.HttpClientPost(PublicString.rootUrl + "collectshow", map);//向服务器中发出请求
+
                     Gson gson = new Gson();
+                    Log.i("AAAAAA", "获取数据库中的全部Newsjson：" + str);
+
+
                     List<News> list = gson.fromJson(str, new TypeToken<List<News>>() {
                     }.getType());
                     //解析服务器中的数据fremJson(json,类型)，TypeToken解析为Adapter类型
@@ -80,6 +94,7 @@ public class CollectFragment extends Fragment {
                 }
             }
         };
+
 
 
 

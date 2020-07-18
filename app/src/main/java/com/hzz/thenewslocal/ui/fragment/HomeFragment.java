@@ -160,6 +160,7 @@ public class HomeFragment extends Fragment {
 
 
                             String phone = news.getUser().getPhone();
+
                             Log.i("新文详细叶相关", "分别创建对应字符串取出各个值：" + id + name + title + content + time + type);
 
                             //携带数据跳转到新闻详情页
@@ -170,6 +171,7 @@ public class HomeFragment extends Fragment {
                             intent.putExtra("time", time);
                             intent.putExtra("name", name);
                             intent.putExtra("phone", phone);
+
                             intent.putExtra("id", id);
                             intent.putExtra("heat",heats);
                             startActivityForResult(intent, NEWS_SHOW);

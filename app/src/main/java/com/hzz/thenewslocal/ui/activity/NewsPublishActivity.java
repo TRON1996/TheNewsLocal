@@ -106,6 +106,7 @@ public class NewsPublishActivity extends AppCompatActivity implements View.OnCli
                 String content = etText.getText().toString();//获取输入框中的标题和内容，转为String
                 news.setContent(content);
                 news.setUser(user);
+
                 news.setImgName(imgList);
                 news.setTitle(title);//装载内容到新闻model
                 Gson gson = new Gson();//创建Gson对象
